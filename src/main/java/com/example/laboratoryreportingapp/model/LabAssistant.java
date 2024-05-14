@@ -1,8 +1,6 @@
-package com.example.laboratoryreportingapp;
+package com.example.laboratoryreportingapp.model;
 
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 public class LabAssistant {
@@ -14,7 +12,15 @@ public class LabAssistant {
     private String lastName;
     private String hospitalId;
 
+    public LabAssistant(Long id, String firstName, String lastName, String hospitalId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hospitalId = hospitalId;
+    }
 
+    public LabAssistant() {
+    }
 
     public Long getId() {
         return id;

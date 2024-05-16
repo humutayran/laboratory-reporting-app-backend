@@ -31,4 +31,16 @@ public class LabAssistantController {
         LabAssistantResponseDto labAssistantResp = labAssistantService.addAssistant(labAssistant);
         return new ResponseEntity<>(labAssistantResp, CREATED);
     }
+
+    @GetMapping("/{assistantId}")
+    public ResponseEntity<LabAssistantResponseDto> getAssistantById(@PathVariable Long assistantId) {
+        LabAssistantResponseDto assistant = labAssistantService.getAssistant(assistantId);
+        return new ResponseEntity<>(assistant, OK);
+    }
+
+    @DeleteMapping("/{assistantId}")
+    public ResponseEntity<String> deleteAssistant(@PathVariable Long assistantId) {
+        labAssistantService.deleteAssistant(assistantId);
+        return new ResponseEntity<>("Asistanin kaydı başarıyla silindi", OK);
+    }
 }

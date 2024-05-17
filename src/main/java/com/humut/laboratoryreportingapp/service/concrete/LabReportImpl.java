@@ -2,9 +2,12 @@ package com.humut.laboratoryreportingapp.service.concrete;
 
 import com.humut.laboratoryreportingapp.dto.request.LabReportRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
+import com.humut.laboratoryreportingapp.dto.response.PatientResponseDto;
 import com.humut.laboratoryreportingapp.exception.AssistantNotFoundException;
 import com.humut.laboratoryreportingapp.mapper.LabAssistantMapper;
 import com.humut.laboratoryreportingapp.mapper.LabReportMapper;
+import com.humut.laboratoryreportingapp.mapper.PatientMapper;
+import com.humut.laboratoryreportingapp.model.LabAssistant;
 import com.humut.laboratoryreportingapp.model.LabReport;
 import com.humut.laboratoryreportingapp.repository.LabReportRepository;
 import com.humut.laboratoryreportingapp.service.abstraction.LabAssistantService;
@@ -14,6 +17,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +48,13 @@ public class LabReportImpl implements LabReportService {
         }
         labReport.setLabAssistant(LabAssistantMapper.INSTANCE.responseDtoToEntity
                 (labAssistantService.findAssistantWithHospitalId(labReport.getLabAssistant().getHospitalId())));
+        Optional<PatientResponseDto> patientWithIdentityNumberOptional =
+                patientService.findPatientWithIdentityNumber(labReport.getPatient().getIdentityNumber());
+        if (patientWithIdentityNumberOptional.isPresent()) {
+            labReport.setPatient(PatientMapper.INSTANCE.responseDtoToEntity(patientWithIdentityNumberOptional.get()));
+        } else {
+            patientService.addPatient(PatientMapper.INSTANCE.entityToRequestDto(labReport.getPatient()));
+        }
         return LabReportMapper.INSTANCE.entityToResponseDto(labReport);
     }
 

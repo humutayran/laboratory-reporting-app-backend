@@ -4,6 +4,7 @@ import com.humut.laboratoryreportingapp.model.LabAssistant;
 import com.humut.laboratoryreportingapp.model.Patient;
 
 import java.util.Date;
+import java.util.List;
 
 public class LabReportResponseDto {
     private Long id;
@@ -15,9 +16,11 @@ public class LabReportResponseDto {
     private String photoPath;
     private LabAssistant labAssistant;
     private Patient patient;
+    private List<LabReportResponseDto> labReports;
 
-    public LabReportResponseDto(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,
-                     Date dateGiven, String photoPath, LabAssistant labAssistant, Patient patient) {
+    public LabReportResponseDto(Long id, String fileNumber, String diagnosisTitle,
+                                String diagnosisDetails, Date dateGiven, String photoPath, LabAssistant labAssistant,
+                                Patient patient, List<LabReportResponseDto> labReports) {
         this.id = id;
         this.fileNumber = fileNumber;
         this.diagnosisTitle = diagnosisTitle;
@@ -26,11 +29,11 @@ public class LabReportResponseDto {
         this.photoPath = photoPath;
         this.labAssistant = labAssistant;
         this.patient = patient;
+        this.labReports = labReports;
     }
 
     public LabReportResponseDto() {
     }
-
 
     public Long getId() {
         return id;

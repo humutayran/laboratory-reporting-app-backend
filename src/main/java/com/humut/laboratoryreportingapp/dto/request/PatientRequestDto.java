@@ -55,4 +55,12 @@ public class PatientRequestDto {
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
     }
+
+    public List<LabReportResponseDto> getLabReports() {
+        return labReports;
+    }
+
+    public void setLabReports(List<LabReportResponseDto> labReports) {
+        this.labReports = labReports;
+    }
 }

@@ -1,5 +1,6 @@
 package com.humut.laboratoryreportingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,10 +23,12 @@ public class LabReport {
 
     @ManyToOne
     @JoinColumn(name = "lab_assistant_id")
+    @JsonBackReference
     private LabAssistant labAssistant;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonBackReference
     private Patient patient;
 
     public LabReport(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,

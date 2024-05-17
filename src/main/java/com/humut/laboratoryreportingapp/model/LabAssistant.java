@@ -1,5 +1,6 @@
 package com.humut.laboratoryreportingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,14 +15,16 @@ public class LabAssistant {
     private String lastName;
     private String hospitalId;
 
-    @OneToMany(mappedBy = "labAssistant", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "labAssistant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<LabReport> labReports;
 
-    public LabAssistant(Long id, String firstName, String lastName, String hospitalId) {
+    public LabAssistant(Long id, String firstName, String lastName, String hospitalId, List<LabReport> labReports) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.hospitalId = hospitalId;
+        this.labReports = labReports;
     }
 
     public LabAssistant() {
@@ -57,5 +60,13 @@ public class LabAssistant {
 
     public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
+    }
+
+    public List<LabReport> getLabReports() {
+        return labReports;
+    }
+
+    public void setLabReports(List<LabReport> labReports) {
+        this.labReports = labReports;
     }
 }

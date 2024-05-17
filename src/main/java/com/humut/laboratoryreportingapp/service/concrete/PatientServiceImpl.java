@@ -56,11 +56,6 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
-    /*@Override
-    public boolean isPatientExist(Long id) {
-        return patientRepository.existsById(id);
-    }*/
-
     protected Patient getPatientById(Long id) {
         return patientRepository.findById(id).orElseThrow();
     }

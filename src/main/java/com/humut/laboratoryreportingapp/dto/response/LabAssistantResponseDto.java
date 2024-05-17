@@ -1,5 +1,7 @@
 package com.humut.laboratoryreportingapp.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class LabAssistantResponseDto {
@@ -8,6 +10,7 @@ public class LabAssistantResponseDto {
     private String firstName;
     private String lastName;
     private String hospitalId;
+    @JsonIgnore
     private List<LabReportResponseDto> labReports;
 
     public LabAssistantResponseDto(Long id, String firstName, String lastName, String hospitalId, List<LabReportResponseDto> labReports) {
@@ -19,14 +22,6 @@ public class LabAssistantResponseDto {
     }
 
     public LabAssistantResponseDto() {
-    }
-
-    public List<LabReportResponseDto> getLabReports() {
-        return labReports;
-    }
-
-    public void setLabReports(List<LabReportResponseDto> labReports) {
-        this.labReports = labReports;
     }
 
     public Long getId() {
@@ -59,5 +54,13 @@ public class LabAssistantResponseDto {
 
     public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
+    }
+
+    public List<LabReportResponseDto> getLabReports() {
+        return labReports;
+    }
+
+    public void setLabReports(List<LabReportResponseDto> labReports) {
+        this.labReports = labReports;
     }
 }

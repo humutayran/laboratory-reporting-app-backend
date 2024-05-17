@@ -1,17 +1,24 @@
 package com.humut.laboratoryreportingapp.dto.request;
 
+import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
+
+import java.util.List;
+
 public class PatientRequestDto {
     private Long id;
 
     private String firstName;
     private String lastName;
     private String identityNumber;
+    private List<LabReportResponseDto> labReports;
 
-    public PatientRequestDto(Long id, String firstName, String lastName, String identityNumber) {
+    public PatientRequestDto(Long id, String firstName, String lastName, String identityNumber,
+                             List<LabReportResponseDto> labReports) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.identityNumber = identityNumber;
+        this.labReports = labReports;
     }
 
     public PatientRequestDto() {

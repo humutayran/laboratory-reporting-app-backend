@@ -9,6 +9,7 @@ import com.humut.laboratoryreportingapp.service.abstraction.PatientService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,9 +45,21 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public Optional<PatientResponseDto> findPatientWithIdentityNumber(String identityNumber) {
+        Optional<Patient> patientOptional = patientRepository.findByIdentityNumber(identityNumber);
+
+        if (patientOptional.isPresent()) {
+            PatientResponseDto patientResponseDto = PatientMapper.INSTANCE.entityToResponseDto(patientOptional.get());
+            return Optional.ofNullable(patientResponseDto);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    /*@Override
     public boolean isPatientExist(Long id) {
         return patientRepository.existsById(id);
-    }
+    }*/
 
     protected Patient getPatientById(Long id) {
         return patientRepository.findById(id).orElseThrow();

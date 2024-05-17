@@ -1,9 +1,8 @@
 package com.example.laboratoryreportingapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Patient {
@@ -14,6 +13,9 @@ public class Patient {
     private String firstName;
     private String lastName;
     private String identityNumber;
+
+    @OneToMany(mappedBy = "patient")
+    private List<LabReport> labReports;
 
     public Patient(Long id, String firstName, String lastName, String identityNumber) {
         this.id = id;

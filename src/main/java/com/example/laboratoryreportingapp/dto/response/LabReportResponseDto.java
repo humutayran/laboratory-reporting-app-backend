@@ -15,6 +15,8 @@ public class LabReportResponseDto {
     private String diagnosisDetails;
     private Date dateGiven;
     private String photoPath;
+    private LabAssistant labAssistant;
+    private Patient patient;
 
     public LabReportResponseDto(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,
                      Date dateGiven, String photoPath, LabAssistant labAssistant, Patient patient) {
@@ -31,8 +33,6 @@ public class LabReportResponseDto {
     public LabReportResponseDto() {
     }
 
-    private LabAssistant labAssistant;
-    private Patient patient;
 
     public Long getId() {
         return id;

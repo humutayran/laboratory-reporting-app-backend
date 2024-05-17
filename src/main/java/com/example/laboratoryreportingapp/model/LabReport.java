@@ -1,6 +1,7 @@
 package com.example.laboratoryreportingapp.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -13,8 +14,19 @@ public class LabReport {
     private String fileNumber;
     private String diagnosisTitle;
     private String diagnosisDetails;
+
+    @CreationTimestamp
     private Date dateGiven;
+
     private String photoPath;
+
+    @ManyToOne
+    @JoinColumn(name = "lab_assistant_id")
+    private LabAssistant labAssistant;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     public LabReport(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,
                      Date dateGiven, String photoPath, LabAssistant labAssistant, Patient patient) {
@@ -30,14 +42,6 @@ public class LabReport {
 
     public LabReport() {
     }
-
-    @ManyToOne
-    @JoinColumn(name = "lab_assistant_id")
-    private LabAssistant labAssistant;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
 
     public Long getId() {
         return id;

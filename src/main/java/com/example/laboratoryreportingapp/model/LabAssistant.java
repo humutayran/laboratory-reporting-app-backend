@@ -2,6 +2,8 @@ package com.example.laboratoryreportingapp.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class LabAssistant {
     @Id
@@ -11,6 +13,9 @@ public class LabAssistant {
     private String firstName;
     private String lastName;
     private String hospitalId;
+
+    @OneToMany(mappedBy = "labAssistant")
+    private List<LabReport> labReports;
 
     public LabAssistant(Long id, String firstName, String lastName, String hospitalId) {
         this.id = id;

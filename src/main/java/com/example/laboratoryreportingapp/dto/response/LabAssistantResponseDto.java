@@ -1,20 +1,32 @@
 package com.example.laboratoryreportingapp.dto.response;
 
+import java.util.List;
+
 public class LabAssistantResponseDto {
     private Long id;
 
     private String firstName;
     private String lastName;
     private String hospitalId;
+    private List<LabReportResponseDto> labReports;
 
-    public LabAssistantResponseDto(Long id, String firstName, String lastName, String hospitalId) {
+    public LabAssistantResponseDto(Long id, String firstName, String lastName, String hospitalId, List<LabReportResponseDto> labReports) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.hospitalId = hospitalId;
+        this.labReports = labReports;
     }
 
     public LabAssistantResponseDto() {
+    }
+
+    public List<LabReportResponseDto> getLabReports() {
+        return labReports;
+    }
+
+    public void setLabReports(List<LabReportResponseDto> labReports) {
+        this.labReports = labReports;
     }
 
     public Long getId() {

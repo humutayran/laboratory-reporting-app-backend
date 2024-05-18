@@ -14,6 +14,9 @@ public class LabReportRequestDto {
     private Date dateGiven;
     private String photoPath;
 
+    private LabAssistant labAssistant;
+    private Patient patient;
+
     public LabReportRequestDto(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,
                      Date dateGiven, String photoPath, LabAssistant labAssistant, Patient patient) {
         this.id = id;
@@ -28,9 +31,6 @@ public class LabReportRequestDto {
 
     public LabReportRequestDto() {
     }
-
-    private LabAssistant labAssistant;
-    private Patient patient;
 
     public Long getId() {
         return id;

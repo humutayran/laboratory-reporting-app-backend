@@ -1,8 +1,5 @@
 package com.humut.laboratoryreportingapp.dto.response;
 
-import com.humut.laboratoryreportingapp.model.LabAssistant;
-import com.humut.laboratoryreportingapp.model.Patient;
-
 import java.util.Date;
 import java.util.List;
 
@@ -14,25 +11,80 @@ public class LabReportResponseDto {
     private String diagnosisDetails;
     private Date dateGiven;
     private String photoPath;
-    private LabAssistant labAssistant;
-    private Patient patient;
-    private List<LabReportResponseDto> labReports;
+    private String labAssistantFirstName;
+    private String labAssistantLastName;
+    private String labAssistantHospitalId;
+    private String patientFirstName;
+    private String patientLastName;
+    private String patientIdentityNumber;
 
-    public LabReportResponseDto(Long id, String fileNumber, String diagnosisTitle,
-                                String diagnosisDetails, Date dateGiven, String photoPath, LabAssistant labAssistant,
-                                Patient patient, List<LabReportResponseDto> labReports) {
+    public LabReportResponseDto(Long id, String fileNumber, String diagnosisTitle, String diagnosisDetails,
+                                Date dateGiven, String photoPath, String labAssistantName,
+                                String getLabAssistantLastName, String labAssistantHospitalId,
+                                String patientName, String patientLastName, String patientIdentityNumber) {
         this.id = id;
         this.fileNumber = fileNumber;
         this.diagnosisTitle = diagnosisTitle;
         this.diagnosisDetails = diagnosisDetails;
         this.dateGiven = dateGiven;
         this.photoPath = photoPath;
-        this.labAssistant = labAssistant;
-        this.patient = patient;
-        this.labReports = labReports;
+        this.labAssistantFirstName = labAssistantName;
+        this.labAssistantLastName = getLabAssistantLastName;
+        this.labAssistantHospitalId = labAssistantHospitalId;
+        this.patientFirstName = patientName;
+        this.patientLastName = patientLastName;
+        this.patientIdentityNumber = patientIdentityNumber;
     }
 
     public LabReportResponseDto() {
+    }
+
+    public String getLabAssistantFirstName() {
+        return labAssistantFirstName;
+    }
+
+    public void setLabAssistantFirstName(String labAssistantFirstName) {
+        this.labAssistantFirstName = labAssistantFirstName;
+    }
+
+    public String getLabAssistantLastName() {
+        return labAssistantLastName;
+    }
+
+    public void setLabAssistantLastName(String labAssistantLastName) {
+        this.labAssistantLastName = labAssistantLastName;
+    }
+
+    public String getLabAssistantHospitalId() {
+        return labAssistantHospitalId;
+    }
+
+    public void setLabAssistantHospitalId(String labAssistantHospitalId) {
+        this.labAssistantHospitalId = labAssistantHospitalId;
+    }
+
+    public String getPatientFirstName() {
+        return patientFirstName;
+    }
+
+    public void setPatientFirstName(String patientFirstName) {
+        this.patientFirstName = patientFirstName;
+    }
+
+    public String getPatientLastName() {
+        return patientLastName;
+    }
+
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
+    }
+
+    public String getPatientIdentityNumber() {
+        return patientIdentityNumber;
+    }
+
+    public void setPatientIdentityNumber(String patientIdentityNumber) {
+        this.patientIdentityNumber = patientIdentityNumber;
     }
 
     public Long getId() {
@@ -81,21 +133,5 @@ public class LabReportResponseDto {
 
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
-    }
-
-    public LabAssistant getLabAssistant() {
-        return labAssistant;
-    }
-
-    public void setLabAssistant(LabAssistant labAssistant) {
-        this.labAssistant = labAssistant;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 }

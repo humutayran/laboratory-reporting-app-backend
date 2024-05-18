@@ -55,6 +55,7 @@ public class LabReportImpl implements LabReportService {
         } else {
             patientService.addPatient(PatientMapper.INSTANCE.entityToRequestDto(labReport.getPatient()));
         }
+        labReportRepository.save(labReport);
         return LabReportMapper.INSTANCE.entityToResponseDto(labReport);
     }
 

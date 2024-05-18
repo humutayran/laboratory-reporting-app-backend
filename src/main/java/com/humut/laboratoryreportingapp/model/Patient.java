@@ -16,7 +16,6 @@ public class Patient {
     private String identityNumber;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<LabReport> labReports;
 
     public Patient(Long id, String firstName, String lastName, String identityNumber, List<LabReport> labReports) {

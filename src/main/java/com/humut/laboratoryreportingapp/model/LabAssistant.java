@@ -16,7 +16,6 @@ public class LabAssistant {
     private String hospitalId;
 
     @OneToMany(mappedBy = "labAssistant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<LabReport> labReports;
 
     public LabAssistant(Long id, String firstName, String lastName, String hospitalId, List<LabReport> labReports) {

@@ -36,4 +36,16 @@ public class LabReport {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    public void disassociate() {
+        if (this.patient != null) {
+            this.patient.getLabReports().remove(this);
+            this.patient = null;
+        }
+
+        if (this.labAssistant != null) {
+            this.labAssistant.getLabReports().remove(this);
+            this.labAssistant = null;
+        }
+    }
 }

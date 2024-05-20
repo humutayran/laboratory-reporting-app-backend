@@ -16,7 +16,9 @@ import com.humut.laboratoryreportingapp.repository.LabReportRepository;
 import com.humut.laboratoryreportingapp.service.abstraction.LabAssistantService;
 import com.humut.laboratoryreportingapp.service.abstraction.LabReportService;
 import com.humut.laboratoryreportingapp.service.abstraction.PatientService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,16 +26,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LabReportImpl implements LabReportService {
+@AllArgsConstructor
+public class LabReportServiceImpl implements LabReportService {
     private final LabReportRepository labReportRepository;
     private final LabAssistantService labAssistantService;
     private final PatientService patientService;
-
-    public LabReportImpl(LabReportRepository labReportRepository, LabAssistantService labAssistantService, PatientService patientService) {
-        this.labReportRepository = labReportRepository;
-        this.labAssistantService = labAssistantService;
-        this.patientService = patientService;
-    }
 
     @Override
     public List<LabReportResponseDto> listAllReports() {
@@ -97,12 +94,9 @@ public class LabReportImpl implements LabReportService {
     @Override
     @Transactional
     public void deleteReportById(Long id) {
-        LabReport labReport = labReportRepository.findById(id).orElseThrow();
+        LabReport labReport = labReportRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("LabReport not found"));
 
-        labReport.setPatient(null);
-        labReport.setLabAssistant(null);
-
-        labReportRepository.save(labReport);
+        labReport.disassociate();
         labReportRepository.deleteById(id);
     }
 }

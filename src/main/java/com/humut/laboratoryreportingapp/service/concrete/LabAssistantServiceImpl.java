@@ -2,7 +2,6 @@ package com.humut.laboratoryreportingapp.service.concrete;
 
 import com.humut.laboratoryreportingapp.dto.request.LabAssistantRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabAssistantResponseDto;
-import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
 import com.humut.laboratoryreportingapp.mapper.LabAssistantMapper;
 import com.humut.laboratoryreportingapp.mapper.LabReportMapper;
 import com.humut.laboratoryreportingapp.model.LabAssistant;
@@ -25,17 +24,16 @@ public class LabAssistantServiceImpl implements LabAssistantService {
     public List<LabAssistantResponseDto> findAllAssistants() {
         List<LabAssistant> labAssistants = labAssistantRepository.findAll();
         return labAssistants.stream()
-                .map(labAssistant -> {
-                    LabAssistantResponseDto dto = LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
-                    dto.setLabReports(labAssistant.getLabReports().stream()
-                            .map(labReport -> {
-                                LabReportResponseDto labReportDto = LabReportMapper.INSTANCE.entityToResponseDto(labReport);
-                                return labReportDto;
-                            })
-                            .collect(Collectors.toList()));
-                    return dto;
-                })
+                .map(this::mapLabReportToAssistant)
                 .collect(Collectors.toList());
+    }
+
+    protected LabAssistantResponseDto mapLabReportToAssistant(LabAssistant labAssistant) {
+        LabAssistantResponseDto dto = LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
+        dto.setLabReports(labAssistant.getLabReports().stream()
+                .map(LabReportMapper.INSTANCE::entityToResponseDto)
+                .collect(Collectors.toList()));
+        return dto;
     }
 
     @Override
@@ -48,7 +46,7 @@ public class LabAssistantServiceImpl implements LabAssistantService {
     @Override
     public LabAssistantResponseDto getAssistant(Long id) {
         LabAssistant labAssistant = getAssistantById(id);
-        return LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
+        return mapLabReportToAssistant(labAssistant);
 
     }
 

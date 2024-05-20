@@ -23,6 +23,6 @@ public class Patient {
     private String lastName;
     private String identityNumber;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private List<LabReport> labReports;
 }

@@ -32,5 +32,21 @@ public class LabReportController {
         return new ResponseEntity<>(saved, CREATED);
     }
 
+    @GetMapping("/{labReportId}")
+    public ResponseEntity<LabReportResponseDto> getLabReportById(@PathVariable Long labReportId) {
+        LabReportResponseDto labReportResponseDto = labReportService.findReportById(labReportId);
+        return new ResponseEntity<>(labReportResponseDto, OK);
+    }
+
+    @DeleteMapping("/{labReportId}")
+    public ResponseEntity<String> deleteLabReportById(@PathVariable Long labReportId) {
+        boolean isDeleted = labReportService.deleteReportById(labReportId);
+        if (isDeleted) {
+            return new ResponseEntity<>("Report has been removed successfully", OK);
+        } else {
+            return new ResponseEntity<>("Report not found", NOT_FOUND);
+        }
+    }
+
 
 }

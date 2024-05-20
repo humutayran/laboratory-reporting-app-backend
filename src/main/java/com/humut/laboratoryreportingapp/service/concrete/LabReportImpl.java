@@ -91,11 +91,19 @@ public class LabReportImpl implements LabReportService {
 
     @Override
     public LabReportResponseDto findReportById(Long id) {
-        return null;
+        LabReport labReport = labReportRepository.findById(id).orElseThrow();
+        return LabReportMapper.INSTANCE.entityToResponseDto(labReport);
     }
 
     @Override
-    public void deleteReportById(Long id) {
-
+    @Transactional
+    public boolean deleteReportById(Long id) {
+        Optional<LabReport> labReportOptional = labReportRepository.findById(id);
+        if (labReportOptional.isPresent()) {
+            labReportRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

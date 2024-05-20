@@ -1,6 +1,5 @@
 package com.humut.laboratoryreportingapp.repository;
 
-import com.humut.laboratoryreportingapp.model.LabAssistant;
 import com.humut.laboratoryreportingapp.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

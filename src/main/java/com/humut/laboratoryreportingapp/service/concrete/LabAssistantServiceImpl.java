@@ -2,8 +2,9 @@ package com.humut.laboratoryreportingapp.service.concrete;
 
 import com.humut.laboratoryreportingapp.dto.request.LabAssistantRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabAssistantResponseDto;
-import com.humut.laboratoryreportingapp.exception.AssistantNotFoundException;
+import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
 import com.humut.laboratoryreportingapp.mapper.LabAssistantMapper;
+import com.humut.laboratoryreportingapp.mapper.LabReportMapper;
 import com.humut.laboratoryreportingapp.model.LabAssistant;
 import com.humut.laboratoryreportingapp.repository.LabAssistantRepository;
 import com.humut.laboratoryreportingapp.service.abstraction.LabAssistantService;
@@ -22,8 +23,18 @@ public class LabAssistantServiceImpl implements LabAssistantService {
 
     @Override
     public List<LabAssistantResponseDto> findAllAssistants() {
-        List<LabAssistant> labAssistant = labAssistantRepository.findAll();
-        return labAssistant.stream().map(LabAssistantMapper.INSTANCE::entityToResponseDto)
+        List<LabAssistant> labAssistants = labAssistantRepository.findAll();
+        return labAssistants.stream()
+                .map(labAssistant -> {
+                    LabAssistantResponseDto dto = LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
+                    dto.setLabReports(labAssistant.getLabReports().stream()
+                            .map(labReport -> {
+                                LabReportResponseDto labReportDto = LabReportMapper.INSTANCE.entityToResponseDto(labReport);
+                                return labReportDto;
+                            })
+                            .collect(Collectors.toList()));
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 

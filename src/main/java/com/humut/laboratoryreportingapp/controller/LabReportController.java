@@ -40,12 +40,8 @@ public class LabReportController {
 
     @DeleteMapping("/{labReportId}")
     public ResponseEntity<String> deleteLabReportById(@PathVariable Long labReportId) {
-        boolean isDeleted = labReportService.deleteReportById(labReportId);
-        if (isDeleted) {
-            return new ResponseEntity<>("Report has been removed successfully", OK);
-        } else {
-            return new ResponseEntity<>("Report not found", NOT_FOUND);
-        }
+        labReportService.deleteReportById(labReportId);
+        return new ResponseEntity<>("Report has been removed successfully", OK);
     }
 
 

@@ -38,8 +38,7 @@ public class LabReportImpl implements LabReportService {
     @Override
     public List<LabReportResponseDto> listAllReports() {
         List<LabReport> labReports = labReportRepository.findAll();
-        return labReports.stream().map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        return labReports.stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
     }
 
     @Override
@@ -97,13 +96,13 @@ public class LabReportImpl implements LabReportService {
 
     @Override
     @Transactional
-    public boolean deleteReportById(Long id) {
-        Optional<LabReport> labReportOptional = labReportRepository.findById(id);
-        if (labReportOptional.isPresent()) {
-            labReportRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
-        }
+    public void deleteReportById(Long id) {
+        LabReport labReport = labReportRepository.findById(id).orElseThrow();
+
+        labReport.setPatient(null);
+        labReport.setLabAssistant(null);
+
+        labReportRepository.save(labReport);
+        labReportRepository.deleteById(id);
     }
 }

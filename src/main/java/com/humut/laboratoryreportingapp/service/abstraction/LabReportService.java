@@ -10,5 +10,5 @@ public interface LabReportService {
     List<LabReportResponseDto> listAllReports();
     LabReportResponseDto saveReport(LabReportRequestDto labReportRequestDto);
     LabReportResponseDto findReportById(Long id);
-    boolean deleteReportById(Long id);
+    void deleteReportById(Long id);
 }

@@ -3,13 +3,13 @@ package com.humut.laboratoryreportingapp.controller;
 import com.humut.laboratoryreportingapp.dto.request.LabReportRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
 import com.humut.laboratoryreportingapp.service.abstraction.LabReportService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin
@@ -51,5 +51,11 @@ public class LabReportController {
         return new ResponseEntity<>(labReportResponseDto, OK);
     }
 
-
+    @GetMapping("/searchReports")
+    public ResponseEntity<List<LabReportResponseDto>> searchReports(
+            @RequestParam String firstName,
+            @RequestParam String lastName) {
+        List<LabReportResponseDto> reports = labReportService.searchReportsByPatientName(firstName, lastName);
+        return ResponseEntity.ok(reports);
+    }
 }

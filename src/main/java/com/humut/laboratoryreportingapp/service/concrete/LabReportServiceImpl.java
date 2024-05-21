@@ -19,7 +19,6 @@ import com.humut.laboratoryreportingapp.service.abstraction.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -122,5 +121,14 @@ public class LabReportServiceImpl implements LabReportService {
         labReportFromDb.setDiagnosisDetails(requestedReport.getDiagnosisDetails());
         labReportFromDb.setPhotoPath(requestedReport.getPhotoPath());
         labReportFromDb.setModifiedDate(LocalDateTime.now());
+    }
+
+    @Override
+    public List<LabReportResponseDto> searchReportsByPatientName(String firstName, String lastName) {
+        List<LabReport> reports = labReportRepository.findByPatientName(firstName, lastName);
+        List<LabReportResponseDto> responseDtos = reports.stream()
+                .map(LabReportMapper.INSTANCE::entityToResponseDto)
+                .collect(Collectors.toList());
+        return responseDtos;
     }
 }

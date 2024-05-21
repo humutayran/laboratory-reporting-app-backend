@@ -43,4 +43,10 @@ public class PatientController {
         patientService.deletePatient(patientId);
         return new ResponseEntity<>("Patient deleted successfully.", OK);
     }
+
+    @GetMapping("/searchPatientsByName")
+    public ResponseEntity<List<PatientResponseDto>> searchPatientsByName(@RequestParam String firstName, @RequestParam String lastName) {
+        List<PatientResponseDto> responseDtos = patientService.searchPatientsByName(firstName, lastName);
+        return ResponseEntity.ok(responseDtos);
+    }
 }

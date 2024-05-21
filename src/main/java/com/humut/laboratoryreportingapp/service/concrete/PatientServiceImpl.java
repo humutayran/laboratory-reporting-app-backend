@@ -65,6 +65,14 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    @Override
+    public List<PatientResponseDto> searchPatientsByName(String firstName, String lastName) {
+        List<Patient> patients = patientRepository.findByFirstNameAndLastName(firstName, lastName);
+        return patients.stream()
+                .map(PatientMapper.INSTANCE::entityToResponseDto)
+                .collect(Collectors.toList());
+    }
+
     protected Patient getPatientById(Long id) {
         return patientRepository.findById(id).orElseThrow();
     }

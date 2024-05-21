@@ -12,4 +12,6 @@ public interface PatientService {
     PatientResponseDto addPatient(PatientRequestDto patientRequestDto);
     void deletePatient(Long id);
     Optional<PatientResponseDto> findPatientWithIdentityNumber(String identityNumber);
+
+    List<PatientResponseDto> searchPatientsByName(String firstName, String lastName);
 }

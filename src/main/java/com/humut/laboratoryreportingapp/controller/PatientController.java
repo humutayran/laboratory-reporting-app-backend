@@ -2,11 +2,13 @@ package com.humut.laboratoryreportingapp.controller;
 
 import com.humut.laboratoryreportingapp.dto.request.PatientRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.PatientResponseDto;
+import com.humut.laboratoryreportingapp.exception.PatientNotFoundException;
 import com.humut.laboratoryreportingapp.service.abstraction.PatientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -48,5 +50,16 @@ public class PatientController {
     public ResponseEntity<List<PatientResponseDto>> searchPatientsByName(@RequestParam String firstName, @RequestParam String lastName) {
         List<PatientResponseDto> responseDtos = patientService.searchPatientsByName(firstName, lastName);
         return ResponseEntity.ok(responseDtos);
+    }
+
+    @GetMapping("/searchPatientByIdentityNumber")
+    public ResponseEntity<Optional<PatientResponseDto>> searchPatientByIdentityNumber(
+            @RequestParam String identityNumber) {
+        Optional<PatientResponseDto> responseDtos = patientService.findPatientWithIdentityNumber(identityNumber);
+        if (responseDtos.isPresent()) {
+            return ResponseEntity.ok(responseDtos);
+        } else {
+            throw new PatientNotFoundException("Patient not found with this identity number: " + identityNumber);
+        }
     }
 }

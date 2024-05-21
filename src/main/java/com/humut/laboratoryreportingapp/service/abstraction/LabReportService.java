@@ -16,4 +16,6 @@ public interface LabReportService {
     List<LabReportResponseDto> searchReportsByPatientName(String firstName, String lastName);
 
     List<LabReportResponseDto> searchReportsByPatientIdentityNumber(String identityNumber);
+
+    List<LabReportResponseDto> searchReportsByLabAssistantName(String firstName, String lastName);
 }

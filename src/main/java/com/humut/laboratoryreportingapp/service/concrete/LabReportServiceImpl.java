@@ -139,4 +139,12 @@ public class LabReportServiceImpl implements LabReportService {
                 .map(LabReportMapper.INSTANCE::entityToResponseDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<LabReportResponseDto> searchReportsByLabAssistantName(String firstName, String lastName) {
+        List<LabReport> reports = labReportRepository.findByLabAssistantName(firstName, lastName);
+        return reports.stream()
+                .map(LabReportMapper.INSTANCE::entityToResponseDto)
+                .collect(Collectors.toList());
+    }
 }

@@ -64,4 +64,10 @@ public class LabReportController {
         List<LabReportResponseDto> responseDtos = labReportService.searchReportsByPatientIdentityNumber(identityNumber);
         return ResponseEntity.ok(responseDtos);
     }
+
+    @GetMapping("/searchReportsByLabAssistantName")
+    public ResponseEntity<List<LabReportResponseDto>> searchReportsByLabAssistantName(@RequestParam String firstName, @RequestParam String lastName) {
+        List<LabReportResponseDto> responseDtos = labReportService.searchReportsByLabAssistantName(firstName, lastName);
+        return ResponseEntity.ok(responseDtos);
+    }
 }

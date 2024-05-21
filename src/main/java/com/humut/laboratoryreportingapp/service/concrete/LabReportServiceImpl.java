@@ -19,8 +19,10 @@ import com.humut.laboratoryreportingapp.service.abstraction.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -98,5 +100,27 @@ public class LabReportServiceImpl implements LabReportService {
 
         labReport.disassociate();
         labReportRepository.deleteById(id);
+    }
+
+    @Override
+    public LabReportResponseDto updateReport(Long labReportId, LabReportRequestDto labReportRequestDto) {
+        LabReport labReportFromDb = labReportRepository.findById(labReportId).orElseThrow();
+        LabReport requestedReport = LabReportMapper.INSTANCE.requestDtoToEntity(labReportRequestDto);
+        updateLabReportField(labReportFromDb, requestedReport);
+        labReportRepository.save(labReportFromDb);
+        return LabReportMapper.INSTANCE.entityToResponseDto(labReportFromDb);
+    }
+
+    private void updateLabReportField(LabReport labReportFromDb, LabReport requestedReport) {
+        handlePatient(requestedReport);
+        validateAndSetLabAssistant(requestedReport);
+
+        labReportFromDb.setPatient(requestedReport.getPatient());
+        labReportFromDb.setLabAssistant(requestedReport.getLabAssistant());
+        labReportFromDb.setFileNumber(requestedReport.getFileNumber());
+        labReportFromDb.setDiagnosisTitle(requestedReport.getDiagnosisTitle());
+        labReportFromDb.setDiagnosisDetails(requestedReport.getDiagnosisDetails());
+        labReportFromDb.setPhotoPath(requestedReport.getPhotoPath());
+        labReportFromDb.setModifiedDate(LocalDateTime.now());
     }
 }

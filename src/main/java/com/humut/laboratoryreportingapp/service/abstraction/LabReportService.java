@@ -11,4 +11,5 @@ public interface LabReportService {
     LabReportResponseDto saveReport(LabReportRequestDto labReportRequestDto);
     LabReportResponseDto findReportById(Long id);
     void deleteReportById(Long id);
+    LabReportResponseDto updateReport(Long labReportId, LabReportRequestDto labReportRequestDto);
 }

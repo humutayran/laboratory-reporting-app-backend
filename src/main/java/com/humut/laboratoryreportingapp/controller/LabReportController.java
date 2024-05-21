@@ -3,6 +3,7 @@ package com.humut.laboratoryreportingapp.controller;
 import com.humut.laboratoryreportingapp.dto.request.LabReportRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabReportResponseDto;
 import com.humut.laboratoryreportingapp.service.abstraction.LabReportService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,12 @@ public class LabReportController {
     public ResponseEntity<String> deleteLabReportById(@PathVariable Long labReportId) {
         labReportService.deleteReportById(labReportId);
         return new ResponseEntity<>("Report has been removed successfully", OK);
+    }
+
+    @PutMapping("/{labReportId}")
+    public ResponseEntity<LabReportResponseDto> updateReport(@PathVariable Long labReportId, @RequestBody LabReportRequestDto labReportRequestDto) {
+        LabReportResponseDto labReportResponseDto = labReportService.updateReport(labReportId, labReportRequestDto);
+        return new ResponseEntity<>(labReportResponseDto, OK);
     }
 
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,4 +27,5 @@ public class LabReportResponseDto {
     private String patientFirstName;
     private String patientLastName;
     private String patientIdentityNumber;
+    private LocalDateTime modifiedDate;
 }

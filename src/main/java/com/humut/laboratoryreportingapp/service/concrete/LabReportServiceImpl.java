@@ -126,25 +126,19 @@ public class LabReportServiceImpl implements LabReportService {
     @Override
     public List<LabReportResponseDto> searchReportsByPatientName(String firstName, String lastName) {
         List<LabReport> reports = labReportRepository.findByPatientName(firstName, lastName);
-        List<LabReportResponseDto> responseDtos = reports.stream()
-                .map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        List<LabReportResponseDto> responseDtos = reports.stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
         return responseDtos;
     }
 
     @Override
     public List<LabReportResponseDto> searchReportsByPatientIdentityNumber(String identityNumber) {
         List<LabReport> reports = labReportRepository.findByPatientIdentityNumber(identityNumber);
-        return reports.stream()
-                .map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        return reports.stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
     }
 
     @Override
     public List<LabReportResponseDto> searchReportsByLabAssistantName(String firstName, String lastName) {
         List<LabReport> reports = labReportRepository.findByLabAssistantName(firstName, lastName);
-        return reports.stream()
-                .map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        return reports.stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
     }
 }

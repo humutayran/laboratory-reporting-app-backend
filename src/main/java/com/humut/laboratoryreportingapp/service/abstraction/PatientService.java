@@ -8,9 +8,13 @@ import java.util.Optional;
 
 public interface PatientService {
     List<PatientResponseDto> findAllPatients();
+
     PatientResponseDto getPatient(Long id);
+
     PatientResponseDto addPatient(PatientRequestDto patientRequestDto);
+
     void deletePatient(Long id);
+
     Optional<PatientResponseDto> findPatientWithIdentityNumber(String identityNumber);
 
     List<PatientResponseDto> searchPatientsByName(String firstName, String lastName);

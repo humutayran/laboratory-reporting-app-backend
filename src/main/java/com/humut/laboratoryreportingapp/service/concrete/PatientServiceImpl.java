@@ -22,16 +22,12 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientResponseDto> findAllPatients() {
         List<Patient> patients = patientRepository.findAll();
-        return patients.stream()
-                .map(this::mapLabReportToPatient)
-                .collect(Collectors.toList());
+        return patients.stream().map(this::mapLabReportToPatient).collect(Collectors.toList());
     }
 
     protected PatientResponseDto mapLabReportToPatient(Patient patient) {
         PatientResponseDto dto = PatientMapper.INSTANCE.entityToResponseDto(patient);
-        dto.setLabReports(patient.getLabReports().stream()
-                .map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList()));
+        dto.setLabReports(patient.getLabReports().stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList()));
         return dto;
     }
 
@@ -68,9 +64,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientResponseDto> searchPatientsByName(String firstName, String lastName) {
         List<Patient> patients = patientRepository.findByFirstNameAndLastName(firstName, lastName);
-        return patients.stream()
-                .map(PatientMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        return patients.stream().map(PatientMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
     }
 
     protected Patient getPatientById(Long id) {

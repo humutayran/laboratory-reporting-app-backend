@@ -52,9 +52,7 @@ public class LabReportController {
     }
 
     @GetMapping("/searchReports")
-    public ResponseEntity<List<LabReportResponseDto>> searchReports(
-            @RequestParam String firstName,
-            @RequestParam String lastName) {
+    public ResponseEntity<List<LabReportResponseDto>> searchReports(@RequestParam String firstName, @RequestParam String lastName) {
         List<LabReportResponseDto> reports = labReportService.searchReportsByPatientName(firstName, lastName);
         return ResponseEntity.ok(reports);
     }

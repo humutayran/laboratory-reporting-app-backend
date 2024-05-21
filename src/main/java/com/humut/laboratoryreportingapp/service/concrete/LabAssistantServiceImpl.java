@@ -24,16 +24,12 @@ public class LabAssistantServiceImpl implements LabAssistantService {
     @Override
     public List<LabAssistantResponseDto> findAllAssistants() {
         List<LabAssistant> labAssistants = labAssistantRepository.findAll();
-        return labAssistants.stream()
-                .map(this::mapLabReportToAssistant)
-                .collect(Collectors.toList());
+        return labAssistants.stream().map(this::mapLabReportToAssistant).collect(Collectors.toList());
     }
 
     protected LabAssistantResponseDto mapLabReportToAssistant(LabAssistant labAssistant) {
         LabAssistantResponseDto dto = LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
-        dto.setLabReports(labAssistant.getLabReports().stream()
-                .map(LabReportMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList()));
+        dto.setLabReports(labAssistant.getLabReports().stream().map(LabReportMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList()));
         return dto;
     }
 
@@ -63,22 +59,18 @@ public class LabAssistantServiceImpl implements LabAssistantService {
 
     @Override
     public LabAssistantResponseDto findAssistantWithHospitalId(String hospitalId) {
-        LabAssistant labAssistant = labAssistantRepository.findByHospitalId(hospitalId)
-                .orElseThrow(() -> new AssistantNotFoundException("Assistant not found with this hospital id: " + hospitalId));
+        LabAssistant labAssistant = labAssistantRepository.findByHospitalId(hospitalId).orElseThrow(() -> new AssistantNotFoundException("Assistant not found with this hospital id: " + hospitalId));
         return LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
     }
 
     protected LabAssistant getAssistantById(Long id) {
-        return labAssistantRepository.findById(id)
-                .orElseThrow();
+        return labAssistantRepository.findById(id).orElseThrow();
     }
 
     @Override
     public List<LabAssistantResponseDto> searchLabAssistantsByName(String firstName, String lastName) {
         List<LabAssistant> labAssistants = labAssistantRepository.findByFirstNameAndLastName(firstName, lastName);
-        return labAssistants.stream()
-                .map(LabAssistantMapper.INSTANCE::entityToResponseDto)
-                .collect(Collectors.toList());
+        return labAssistants.stream().map(LabAssistantMapper.INSTANCE::entityToResponseDto).collect(Collectors.toList());
     }
 
 }

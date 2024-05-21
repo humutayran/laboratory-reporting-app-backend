@@ -10,7 +10,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface LabReportMapper {
     LabReportMapper INSTANCE = Mappers.getMapper(LabReportMapper.class);
+
     LabReport requestDtoToEntity(LabReportRequestDto labReportRequestDto);
+
     @Mapping(source = "labAssistant.firstName", target = "labAssistantFirstName")
     @Mapping(source = "labAssistant.lastName", target = "labAssistantLastName")
     @Mapping(source = "labAssistant.hospitalId", target = "labAssistantHospitalId")

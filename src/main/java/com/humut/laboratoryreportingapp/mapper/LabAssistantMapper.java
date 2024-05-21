@@ -9,7 +9,10 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface LabAssistantMapper {
     LabAssistantMapper INSTANCE = Mappers.getMapper(LabAssistantMapper.class);
+
     LabAssistant requestDtoToEntity(LabAssistantRequestDto labAssistantRequestDto);
+
     LabAssistantResponseDto entityToResponseDto(LabAssistant labAssistant);
+
     LabAssistant responseDtoToEntity(LabAssistantResponseDto labAssistantResponseDto);
 }

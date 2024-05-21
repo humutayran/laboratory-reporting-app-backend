@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LabReportRepository extends JpaRepository<LabReport, Long > {
+public interface LabReportRepository extends JpaRepository<LabReport, Long> {
     @Query("SELECT lr FROM LabReport lr WHERE lr.patient.firstName LIKE %:firstName% AND lr.patient.lastName LIKE %:lastName%")
     List<LabReport> findByPatientName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 

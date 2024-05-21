@@ -43,4 +43,10 @@ public class LabAssistantController {
         labAssistantService.deleteAssistant(assistantId);
         return new ResponseEntity<>("Asistanin kaydı başarıyla silindi", OK);
     }
+
+    @GetMapping("/searchLabAssistantsByName")
+    public ResponseEntity<List<LabAssistantResponseDto>> searchLabAssistantsByName(@RequestParam String firstName, @RequestParam String lastName) {
+        List<LabAssistantResponseDto> responseDtos = labAssistantService.searchLabAssistantsByName(firstName, lastName);
+        return ResponseEntity.ok(responseDtos);
+    }
 }

@@ -71,4 +71,12 @@ public class LabAssistantServiceImpl implements LabAssistantService {
                 .orElseThrow();
     }
 
+    @Override
+    public List<LabAssistantResponseDto> searchLabAssistantsByName(String firstName, String lastName) {
+        List<LabAssistant> labAssistants = labAssistantRepository.findByFirstNameAndLastName(firstName, lastName);
+        return labAssistants.stream()
+                .map(LabAssistantMapper.INSTANCE::entityToResponseDto)
+                .collect(Collectors.toList());
+    }
+
 }

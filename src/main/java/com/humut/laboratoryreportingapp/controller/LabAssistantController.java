@@ -49,4 +49,10 @@ public class LabAssistantController {
         List<LabAssistantResponseDto> responseDtos = labAssistantService.searchLabAssistantsByName(firstName, lastName);
         return ResponseEntity.ok(responseDtos);
     }
+
+    @GetMapping("/searchByHospitalId")
+    public ResponseEntity<LabAssistantResponseDto> searchLabAssistantByHospitalId(@RequestParam String hospitalId) {
+        LabAssistantResponseDto assistant = labAssistantService.findAssistantWithHospitalId(hospitalId);
+        return ResponseEntity.ok(assistant);
+    }
 }

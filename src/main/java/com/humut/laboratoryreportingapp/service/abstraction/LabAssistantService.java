@@ -12,6 +12,5 @@ public interface LabAssistantService {
     void deleteAssistant(Long id);
     boolean existByHospitalId(String hospitalId);
     LabAssistantResponseDto findAssistantWithHospitalId(String hospitalId);
-
     List<LabAssistantResponseDto> searchLabAssistantsByName(String firstName, String lastName);
 }

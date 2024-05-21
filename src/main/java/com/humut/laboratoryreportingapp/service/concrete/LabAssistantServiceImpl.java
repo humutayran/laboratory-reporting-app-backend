@@ -2,6 +2,7 @@ package com.humut.laboratoryreportingapp.service.concrete;
 
 import com.humut.laboratoryreportingapp.dto.request.LabAssistantRequestDto;
 import com.humut.laboratoryreportingapp.dto.response.LabAssistantResponseDto;
+import com.humut.laboratoryreportingapp.exception.AssistantNotFoundException;
 import com.humut.laboratoryreportingapp.mapper.LabAssistantMapper;
 import com.humut.laboratoryreportingapp.mapper.LabReportMapper;
 import com.humut.laboratoryreportingapp.model.LabAssistant;
@@ -62,7 +63,8 @@ public class LabAssistantServiceImpl implements LabAssistantService {
 
     @Override
     public LabAssistantResponseDto findAssistantWithHospitalId(String hospitalId) {
-        LabAssistant labAssistant = labAssistantRepository.findByHospitalId(hospitalId).orElseThrow();
+        LabAssistant labAssistant = labAssistantRepository.findByHospitalId(hospitalId)
+                .orElseThrow(() -> new AssistantNotFoundException("Assistant not found with this hospital id: " + hospitalId));
         return LabAssistantMapper.INSTANCE.entityToResponseDto(labAssistant);
     }
 

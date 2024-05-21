@@ -14,4 +14,6 @@ public interface LabReportService {
     void deleteReportById(Long id);
     LabReportResponseDto updateReport(Long labReportId, LabReportRequestDto labReportRequestDto);
     List<LabReportResponseDto> searchReportsByPatientName(String firstName, String lastName);
+
+    List<LabReportResponseDto> searchReportsByPatientIdentityNumber(String identityNumber);
 }
